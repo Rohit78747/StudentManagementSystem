@@ -22,7 +22,20 @@ from .import views, Hod_View,Staff_Views,Student_Views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('base/',views.Base,name='Base')
+    path('base/',views.Base,name='Base'),
+#     Login path
+    path('',views.Login,name='login'),
+    path('doLogin',views.doLogin,name='doLogin'),
+    path('doLogout',views.doLogout,name='doLogout'),
+
+    #profile Update
+
+    path('profile',views.Profile,name='profile'),
+    path('profile/update',views.Profile_Update,name='profile_update'),
+
+    #This is hod panel url
+    path('HOD/Home',Hod_View.Home,name='hod_home')
+
 ]+ static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
 
 
