@@ -67,10 +67,10 @@ def Profile_Update(request):
             if password !=None and password != "":
                 customuser.set_password(password)
             if profile_pic != None and profile_pic != "":
-                customuser.profile_pic = profile_pic
+                 customuser.profile_pic = profile_pic
             customuser.save()
             messages.success(request,"Your Profile Updated Successfully !")
-            redirect('profile')
+            return redirect('profile')
         except:
             messages.error(request,"Failed To Update Your Profile")
     return render(request,'profile.html')

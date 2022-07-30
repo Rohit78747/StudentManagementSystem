@@ -34,7 +34,8 @@ urlpatterns = [
     path('profile/update',views.Profile_Update,name='profile_update'),
 
     #This is hod panel url
-    path('HOD/Home',Hod_View.Home,name='hod_home')
+    path('HOD/Home',Hod_View.Home,name='hod_home'),
+    path('Hod/Student/Add',Hod_View.AddStudent,name="add_student")
 
 ]+ static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
 
