@@ -17,8 +17,8 @@ class CustomUser(AbstractUser):
 
 class Course(models.Model):
     name = models.CharField(max_length=100)
-    created_at = models.DateField(auto_now_add=True)
-    update_add = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
@@ -38,7 +38,18 @@ class Student(models.Model):
     course_id = models.ForeignKey(Course,on_delete=models.DO_NOTHING)
     session_id = models.ForeignKey(SessionYear,on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.admin.first_name
+
+class Staff(models.Model):
+    admin = models.OneToOneField(CustomUser,on_delete=models.CASCADE)
+    middle_name = models.CharField(max_length=100,default=True)
+    address =models.TextField(default=True)
+    gender =models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.admin.username

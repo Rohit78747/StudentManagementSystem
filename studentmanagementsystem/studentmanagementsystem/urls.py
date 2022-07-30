@@ -35,7 +35,19 @@ urlpatterns = [
 
     #This is hod panel url
     path('HOD/Home',Hod_View.Home,name='hod_home'),
-    path('Hod/Student/Add',Hod_View.AddStudent,name="add_student")
+    path('Hod/Student/Add',Hod_View.AddStudent,name="add_student"),
+    path('Hod/Student/View', Hod_View.ViewStudent, name="view_student"),
+    path('Hod/Student/Edit/<str:id>', Hod_View.EditStudent, name="edit_student"),
+    path('Hod/Student/Update', Hod_View.UpdateStudent, name="update_student"),
+    path('Hod/Student/Delete<str:admin>', Hod_View.DeleteStudent, name="delete_student"),
+
+    path('Hod/Course/Add',Hod_View.AddCourse,name='add_course'),
+    path('Hod/Course/View',Hod_View.ViewCourse,name='view_course'),
+    path('Hod/Course/Edit/<str:id>',Hod_View.EditCourse,name='edit_course'),
+    path('Hod/Course/Update', Hod_View.UpdateCourse, name='update_course'),
+    path('Hod/Course/Delete<str:id>', Hod_View.DeleteCourse, name='delete_course'),
+
+    path('Hod/Staff/Add',Hod_View.AddStaff,name="add_staff"),
 
 ]+ static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
 
