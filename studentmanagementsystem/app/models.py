@@ -24,8 +24,8 @@ class Course(models.Model):
         return self.name
 
 class SessionYear(models.Model):
-    session_start = models.CharField(max_length=100)
-    session_end = models.CharField(max_length=100)
+    session_start = models.CharField(max_length=100,null=False)
+    session_end = models.CharField(max_length=100,null=False)
 
     def __str__(self):
         return self.session_start + " to " +self.session_end
@@ -37,7 +37,7 @@ class Student(models.Model):
     gender = models.CharField(max_length=100)
     course_id = models.ForeignKey(Course,on_delete=models.DO_NOTHING)
     session_id = models.ForeignKey(SessionYear,on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True,null=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
@@ -53,3 +53,15 @@ class Staff(models.Model):
 
     def __str__(self):
         return self.admin.username
+
+class Subject(models.Model):
+    name = models.CharField(max_length=100)
+    course = models.ForeignKey(Course,on_delete=models.CASCADE)
+    staff = models.ForeignKey(Staff,on_delete=models.CASCADE)
+    created_at =models.DateTimeField(auto_now_add=True)
+    updated_at =models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+

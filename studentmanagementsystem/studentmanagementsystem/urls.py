@@ -48,6 +48,25 @@ urlpatterns = [
     path('Hod/Course/Delete<str:id>', Hod_View.DeleteCourse, name='delete_course'),
 
     path('Hod/Staff/Add',Hod_View.AddStaff,name="add_staff"),
+    path('Hod/Staff/View',Hod_View.ViewStaff,name='view_staff'),
+    path('Hod/Staff/Edit/<str:id>', Hod_View.EditStaff, name='edit_staff'),
+    path('Hod/Staff/Update', Hod_View.UpdateStaff, name='update_staff'),
+    path('Hod/Staff/Delete<str:admin>', Hod_View.DeleteStaff, name='delete_staff'),
+
+    path('Hod/Subject/Add', Hod_View.AddSubject, name='add_subject'),
+    path('Hod/Subject/View', Hod_View.ViewSubject, name='view_subject'),
+    path('Hod/Subject/Edit/<str:id>', Hod_View.EditSubject, name='edit_subject'),
+    path('Hod/Subject/Update', Hod_View.UpdateSubject, name='update_subject'),
+    path('Hod/Subject/Delete<str:id>', Hod_View.DeleteSubject, name='delete_subject'),
+
+
+    path('Hod/Session/Add',Hod_View.AddSession,name = 'add_session'),
+    path('Hod/Session/View',Hod_View.ViewSession,name = 'view_session'),
+    path('Hod/Session/Edit/<str:id>', Hod_View.EditSession, name='edit_session'),
+    path('Hod/Session/Update', Hod_View.UpdateSession, name='update_session'),
+    path('Hod/Session/Delete<str:id>', Hod_View.DeleteSession, name='delete_session'),
+
+
 
 ]+ static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
 
