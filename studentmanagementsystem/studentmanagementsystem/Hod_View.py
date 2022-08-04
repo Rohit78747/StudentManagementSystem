@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from app.models import Course,SessionYear,CustomUser,Student,Staff,Subject
+from app.models import Course,SessionYear,CustomUser,Student,Staff,Subject,Staff_Notification,Staff_Leave
 
 
 @login_required(login_url='/')
@@ -447,3 +447,50 @@ def DeleteSession(request,id):
     messages.success(request,"Session Year Successfully Deleted")
 
     return redirect('view_session')
+
+@login_required(login_url='/')
+def Staff_Send_Notification(request):
+
+    staff = Staff.objects.all()
+    see_notification = Staff_Notification.objects.all().order_by('-id')[0:5]
+    context = {
+        'staff':staff,
+        'see_notification':see_notification,
+    }
+    return render(request,'Hod/send_staff_notification.html',context)
+
+@login_required(login_url='/')
+def Staff_Save_Notification(request):
+    if request.method == 'POST':
+        staff_id = request.POST.get('staff_id')
+        message = request.POST.get('message')
+
+        staff = Staff.objects.get(admin=staff_id)
+        notification =  Staff_Notification(
+            staff_id = staff,
+            message = message
+        )
+        notification.save()
+        messages.success(request,"Notification Are Successfully Sent")
+        return redirect('staff_send_notification')
+
+def Staff_Leave_View(request):
+    staff_leave = Staff_Leave.objects.all()
+
+    context = {
+        'staff_leave': staff_leave
+    }
+
+    return render(request,'Hod/staff_leave.html',context)
+
+def StaffApproveLeave(request,id):
+    leave = Staff_Leave.objects.get(id = id)
+    leave.status = 1
+    leave.save()
+    return redirect('staff_save_leave_view')
+
+def StaffDisApproveLeave(request,id):
+    leave = Staff_Leave.objects.get(id = id)
+    leave.status=2
+    leave.save()
+    return redirect('staff_save_leave_view')

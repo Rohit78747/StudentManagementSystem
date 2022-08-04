@@ -66,6 +66,23 @@ urlpatterns = [
     path('Hod/Session/Update', Hod_View.UpdateSession, name='update_session'),
     path('Hod/Session/Delete<str:id>', Hod_View.DeleteSession, name='delete_session'),
 
+    path('Hod/Staff/Send_Notification',Hod_View.Staff_Send_Notification,name="staff_send_notification"),
+    path('Hod/Staff/Save_Notification',Hod_View.Staff_Save_Notification,name="staff_save_notification"),
+
+    path('Hod/Staff/Leave_View', Hod_View.Staff_Leave_View, name="staff_save_leave_view"),
+    path('Hod/Staff/ApproveLeave/<str:id>', Hod_View.StaffApproveLeave, name='staff_approve_leave'),
+    path('Hod/Staff/DisApproveLeave/<str:id>', Hod_View.StaffDisApproveLeave, name='staff_dis_approve_leave'),
+
+
+    #This is staff Url
+    path('Staff/Home',Staff_Views.Home,name='staff_home'),
+    path('Staff/Notifications', Staff_Views.Notifications, name='notifications'),
+    path('Staff/MarkAsRead/<str:status>', Staff_Views.MarkAsRead, name='mark_as_read'),
+    path('Staff/ApplyLeave', Staff_Views.ApplyLeave, name='staff_apply_leave'),
+    path('Staff/ApplyLeaveSave', Staff_Views.ApplyLeaveSave, name='staff_apply_leave_save'),
+
+
+
 
 
 ]+ static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
