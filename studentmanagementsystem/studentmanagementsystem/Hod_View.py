@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from app.models import Course,SessionYear,CustomUser,Student,Staff,Subject,Staff_Notification,Staff_Leave
+from app.models import Course,SessionYear,CustomUser,Student,Staff,Subject,Staff_Notification,Student_Notification,Staff_Leave,StaffFeedBack,StudentFeedBack
 
 
 @login_required(login_url='/')
@@ -460,6 +460,17 @@ def Staff_Send_Notification(request):
     return render(request,'Hod/send_staff_notification.html',context)
 
 @login_required(login_url='/')
+def Student_Send_Notification(request):
+    student =Student.objects.all()
+    see_notification = Student_Notification.objects.all()
+    context = {
+        'student':student,
+        'see_notification':see_notification
+    }
+
+    return render(request, 'Hod/student_notification.html',context)
+
+@login_required(login_url='/')
 def Staff_Save_Notification(request):
     if request.method == 'POST':
         staff_id = request.POST.get('staff_id')
@@ -474,6 +485,23 @@ def Staff_Save_Notification(request):
         messages.success(request,"Notification Are Successfully Sent")
         return redirect('staff_send_notification')
 
+@login_required(login_url='/')
+def Student_Save_Notification(request):
+    if request.method == 'POST':
+        student_id = request.POST.get('student_id')
+        message = request.POST.get('message')
+
+        student = Student.objects.get(admin=student_id)
+        notification = Student_Notification(
+            student_id=student,
+            message=message
+            )
+        notification.save()
+        messages.success(request, "Notification Are Successfully Sent")
+        return redirect('student_send_notification')
+
+
+@login_required(login_url='/')
 def Staff_Leave_View(request):
     staff_leave = Staff_Leave.objects.all()
 
@@ -483,14 +511,67 @@ def Staff_Leave_View(request):
 
     return render(request,'Hod/staff_leave.html',context)
 
+@login_required(login_url='/')
 def StaffApproveLeave(request,id):
     leave = Staff_Leave.objects.get(id = id)
     leave.status = 1
     leave.save()
     return redirect('staff_save_leave_view')
 
+@login_required(login_url='/')
 def StaffDisApproveLeave(request,id):
     leave = Staff_Leave.objects.get(id = id)
     leave.status=2
     leave.save()
     return redirect('staff_save_leave_view')
+
+@login_required(login_url='/')
+def Staff_Feedback(request):
+    feedback = StaffFeedBack.objects.all()
+    feedback_history =StaffFeedBack.objects.all().order_by('-id')[0:5]
+
+    context ={
+        'feedback':feedback,
+        'feedback_history': feedback_history,
+    }
+
+
+    return render(request,'Hod/staff_feedback.html',context)
+
+@login_required(login_url='/')
+def Student_Feedback(request):
+    feedback = StudentFeedBack.objects.all()
+    feedback_history = StudentFeedBack.objects.all().order_by('-id')[0:5]
+
+    context ={
+        'feedback':feedback,
+        'feedback_history':feedback_history,
+    }
+    return render(request,'Hod/student_feedback.html',context)
+
+@login_required(login_url='/')
+def Staff_Feedback_Save(request):
+    if request.method == 'POST':
+        feedback_id = request.POST.get('feedback_id')
+        feedback_reply = request.POST.get('feedback_reply')
+
+        feedback = StaffFeedBack.objects.get(id=feedback_id)
+        feedback.feedback_reply = feedback_reply
+        feedback.status = 1
+        feedback.save()
+        messages.success(request, "Feedback Successfully Sent")
+
+        return redirect('staff_feedback_reply')
+
+@login_required(login_url='/')
+def Student_Feedback_Save(request):
+    if request.method == 'POST':
+        feedback_id = request.POST.get('feedback_id')
+        feedback_reply = request.POST.get('feedback_reply')
+        feedback = StudentFeedBack.objects.get(id=feedback_id)
+        feedback.feedback_reply = feedback_reply
+        feedback.status=1
+        feedback.save()
+        messages.success(request, "Feedback Successfully Sent")
+
+        return redirect('student_feedback_reply')

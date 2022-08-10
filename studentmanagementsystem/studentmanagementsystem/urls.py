@@ -69,10 +69,17 @@ urlpatterns = [
     path('Hod/Staff/Send_Notification',Hod_View.Staff_Send_Notification,name="staff_send_notification"),
     path('Hod/Staff/Save_Notification',Hod_View.Staff_Save_Notification,name="staff_save_notification"),
 
+    path('Hod/Student/Send_Notification',Hod_View.Student_Send_Notification,name="student_send_notification"),
+    path('Hod/Student/Save_Notification',Hod_View.Student_Save_Notification,name="student_save_notification"),
+
     path('Hod/Staff/Leave_View', Hod_View.Staff_Leave_View, name="staff_save_leave_view"),
     path('Hod/Staff/ApproveLeave/<str:id>', Hod_View.StaffApproveLeave, name='staff_approve_leave'),
     path('Hod/Staff/DisApproveLeave/<str:id>', Hod_View.StaffDisApproveLeave, name='staff_dis_approve_leave'),
 
+    path('Hod/Staff/Feedback',Hod_View.Staff_Feedback,name='staff_feedback_reply'),
+    path('Hod/Staff/Feedback/Save', Hod_View.Staff_Feedback_Save, name='staff_feedback_reply_save'),
+    path('Hod/Student/Feedback', Hod_View.Student_Feedback, name='student_feedback_reply'),
+    path('Hod/Student/Feedback/Save', Hod_View.Student_Feedback_Save, name='student_feedback_reply_save'),
 
     #This is staff Url
     path('Staff/Home',Staff_Views.Home,name='staff_home'),
@@ -80,6 +87,21 @@ urlpatterns = [
     path('Staff/MarkAsRead/<str:status>', Staff_Views.MarkAsRead, name='mark_as_read'),
     path('Staff/ApplyLeave', Staff_Views.ApplyLeave, name='staff_apply_leave'),
     path('Staff/ApplyLeaveSave', Staff_Views.ApplyLeaveSave, name='staff_apply_leave_save'),
+
+
+    path('Staff/Feedback',Staff_Views.StaffFeedback, name='staff_feedback'),
+    path('Staff/Feedback/Save', Staff_Views.StaffFeedbackSave, name='staff_feedback_save'),
+
+
+
+    #This is student panel
+    path('Student/Home',Student_Views.Home,name='student_home'),
+    path('Student/Notifications', Student_Views.StudentNotifications, name='student_notifications'),
+    path('Student/MarkAsDone/<str:status>', Student_Views.MarkAsDone, name='mark_as_done'),
+    path('Student/Feedback',Student_Views.StudentFeedback, name='student_feedback'),
+    path('Student/Feedback/Save', Student_Views.StudentFeedbackSave, name='student_feedback_save'),
+
+
 
 
 

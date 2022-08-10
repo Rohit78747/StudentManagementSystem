@@ -5,10 +5,10 @@
    <div class="page-header">
       <div class="row align-items-center">
             <div class="col">
-            <h3 class="page-title">Staff</h3>
+            <h3 class="page-title">Student Notification</h3>
                   <ul class="breadcrumb">
                       <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                      <li class="breadcrumb-item active">Staff</li>
+                      <li class="breadcrumb-item active">Student Notification</li>
                   </ul>
              </div>
             <div class="col-auto text-right float-right ml-auto">
@@ -34,7 +34,7 @@
                         </tr>
                      </thead>
                      <tbody>
-                        {% for i in staff %}
+                        {% for i in student %}
                         <tr>
                            <td>{{i.id}}</td>
                            <td>
@@ -46,7 +46,7 @@
                            <td>{{i.admin.email}}</td>
                            <td class="text-right">
                               <button type="button" class="btn btn-success" data-toggle="modal" data-target="#sendnotiofication-{{forloop.counter}}">
-                              Send Staff Notification
+                              Send Student Notification
                               </button>
                            </td>
                         </tr>
@@ -108,22 +108,22 @@
             </div>
          </div>
       </div>
-      {% for i in staff %}
+      {% for i in student %}
       <div class="modal fade" id="sendnotiofication-{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
          <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLongTitle">Send Staff Notification To {{i.admin.first_name}}&nbsp;{{i.middle_name}}&nbsp;{{i.admin.last_name}}</h5>
+                  <h5 class="modal-title" id="exampleModalLongTitle">Send Student Notification To {{i.admin.first_name}}&nbsp;{{i.middle_name}}&nbsp;{{i.admin.last_name}}</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                   </button>
                </div>
                <div class="modal-body">
-                  <form method="post" action="{% url 'staff_save_notification' %}">
+                  <form method="post" action="{% url 'student_save_notification' %}">
                      {% csrf_token %}
                      <div class="form-group">
                         <input type="text" class="form-control" name="message">
-                        <input type="text" class="form-control" name="staff_id" value="{{i.admin.id}}" hidden>
+                        <input type="text" class="form-control" name="student_id" value="{{i.admin.id}}" hidden>
                      </div>
                      <button type="submit" class="btn btn-primary">Send Notification</button>
                   </form>
